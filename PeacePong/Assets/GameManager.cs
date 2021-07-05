@@ -26,10 +26,15 @@ public class GameManager : MonoBehaviour {
 
 	void OnGUI() {
 		GUI.skin = layout;
-		GUI.Label (new Rect (Screen.width / 2 - 150 - 12, 20, 100, 100), "" + PlayerScore1);
-		GUI.Label (new Rect (Screen.width / 2 + 150 + 12, 20, 100, 100), "" + PlayerScore2);
+		var centeredStyle = GUI.skin.GetStyle("Label");
+		centeredStyle.alignment = TextAnchor.UpperCenter;
+		//GUI.Label(new Rect(Screen.width / 2 - 60, Screen.height / 2 - 25, 120, 50), "BLAH", centeredStyle);
+		GUI.Label(new Rect(Screen.width / 2 - 150, 20, 100, 50), "" + PlayerScore1, centeredStyle);
+		GUI.Label(new Rect(Screen.width / 2 + 50, 20, 100, 50), "" + PlayerScore2, centeredStyle);
 
-		if (GUI.Button (new Rect (Screen.width / 2 - 60, 35, 120, 53), "RESTART")) {
+		var centeredStyleButton = GUI.skin.GetStyle("Button");
+		centeredStyleButton.alignment = TextAnchor.MiddleCenter;
+		if (GUI.Button (new Rect (Screen.width / 2 - 60, 20, 120, 50), "RESTART", centeredStyleButton)) {
 			PlayerScore1 = 0;
 			PlayerScore2 = 0;
 			theBall.SendMessage ("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);

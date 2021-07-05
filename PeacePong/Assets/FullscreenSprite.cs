@@ -23,7 +23,7 @@ public class FullscreenSprite : MonoBehaviour
         Vector2 cameraSize = new Vector2(Camera.main.aspect * cameraHeight, cameraHeight);
         Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
         Vector2 scale = transform.localScale;
-        if (cameraSize.x >= cameraSize.y)
+        if (cameraSize.y >= cameraSize.x)
         {
             scale *= cameraSize.x / spriteSize.x;
         }
