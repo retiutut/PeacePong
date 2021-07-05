@@ -9,9 +9,9 @@ public class BallControl : MonoBehaviour {
 	void GoBall() {
 		float rand = Random.Range (0, 2);
 		if (rand < 1) {
-			rb2d.AddForce (new Vector2 (20, -15));
+			rb2d.AddForce (new Vector2 (25, -10));
 		} else {
-			rb2d.AddForce (new Vector2 (-20, -15));
+			rb2d.AddForce (new Vector2 (-25, -10));
 		}
 	}
 
@@ -35,7 +35,9 @@ public class BallControl : MonoBehaviour {
 		if (coll.collider.CompareTag ("Player")) {
 			Vector2 vel;
 			vel.x = rb2d.velocity.x;
-			vel.y = (rb2d.velocity.y / 2.0f) + (coll.collider.attachedRigidbody.velocity.y / 3.0f);
+			//The following line makes for more variable ball speed depending on how the ball strikes the paddles
+			//vel.y = (rb2d.velocity.y / 2.0f) + (coll.collider.attachedRigidbody.velocity.y / 3.0f);
+			vel.y = rb2d.velocity.y; //Constant ball speed for X and Y axes
 			rb2d.velocity = vel;
 		}
 	}
