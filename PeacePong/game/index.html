@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Pong Game</title>
+    <title>Unity WebGL Player | Peace Pong</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
@@ -22,20 +22,20 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Pong Game</div>
+        <div id="unity-build-title">Peace Pong</div>
       </div>
     </div>
     <script>
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/game.loader.js";
       var config = {
-        dataUrl: buildUrl + "/game.data",
-        frameworkUrl: buildUrl + "/game.framework.js",
-        codeUrl: buildUrl + "/game.wasm",
+        dataUrl: buildUrl + "/game.data.unityweb",
+        frameworkUrl: buildUrl + "/game.framework.js.unityweb",
+        codeUrl: buildUrl + "/game.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "Awesome Inc U",
-        productName: "Pong Game",
-        productVersion: "1.0",
+        companyName: "ELOG",
+        productName: "Peace Pong",
+        productVersion: "0.1",
       };
 
       var container = document.querySelector("#unity-container");
