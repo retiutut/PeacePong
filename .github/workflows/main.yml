@@ -34,5 +34,5 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          cp -a /PeacePong/game/ .
+          cp -a ./PeacePong/game/ .
           echo Done copying WebGL Build to Root!
