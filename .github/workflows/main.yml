@@ -34,10 +34,5 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          steps:
-
-      - name: copy file
-        uses: canastro/copy-file-action@master
-        with:
-          source: "PeacePong/game/Build"
-          target: "Build"
+          cp -a /PeacePong/game/ .
+          echo Done copying WebGL Build to Root!
