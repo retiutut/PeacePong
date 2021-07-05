@@ -36,5 +36,6 @@ jobs:
           echo test, and deploy your project.
           ls
           cp -a ./PeacePong/game/ .
+          echo Listing updated directories
           ls
           echo Done copying WebGL Build to Root!
