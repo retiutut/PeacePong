@@ -4,7 +4,7 @@ PeacePong is a re-imagination of the classic Pong game as a self-cooperative and
 
 Based On: https://github.com/ainc/unity-pong
 
-Uses latest Unity LTS and WebGL.
+Uses latest Unity LTS and WebGL. Built locally, pushed, then deployed to GitHub Pages using GitHub Actions.
 
 
 ____
