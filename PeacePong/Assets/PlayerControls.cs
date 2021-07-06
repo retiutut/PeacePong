@@ -48,6 +48,7 @@ public class PlayerControls : MonoBehaviour {
 			target.x = transform.position.x;
 			target.z = transform.position.z;
 			transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+			userInteraction = true;
 
 		}
 		
