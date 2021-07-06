@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BallControl : MonoBehaviour {
 
+	private AudioSource pongSound;
 	private Rigidbody2D rb2d;
 
 	void GoBall() {
@@ -19,6 +20,7 @@ public class BallControl : MonoBehaviour {
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
 		Invoke ("GoBall", 2);
+		pongSound = GetComponent<AudioSource>();
 	}
 
 	void ResetBall() {
@@ -39,6 +41,8 @@ public class BallControl : MonoBehaviour {
 			//vel.y = (rb2d.velocity.y / 2.0f) + (coll.collider.attachedRigidbody.velocity.y / 3.0f);
 			vel.y = rb2d.velocity.y; //Constant ball speed for X and Y axes
 			rb2d.velocity = vel;
+
+			pongSound.Play();
 		}
 	}
 

@@ -20,8 +20,9 @@ public class PlayerControls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		var vel = rb2d.velocity;
+
 		//Keyboard Controls
+		var vel = rb2d.velocity;
 		if (Input.GetKey (moveUp)) {
 			vel.y = speed;
 		} else if (Input.GetKey (moveDown)) {
@@ -31,7 +32,7 @@ public class PlayerControls : MonoBehaviour {
 		}
 		rb2d.velocity = vel;
 
-		/*
+
 		//Mouse/Touch Controls
 		if (Input.GetMouseButton(0))
 		{
@@ -41,8 +42,8 @@ public class PlayerControls : MonoBehaviour {
 			target.z = transform.position.z;
 			transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 		}
-		*/
-
+		
+		//Constrain to window size
 		var pos = transform.position;
 		if (pos.y > boundY) {
 			pos.y = boundY;
