@@ -14,6 +14,8 @@ ____
 
 https://www.psychology.org.au/for-members/publications/inpsych/2011/dec/Beyond-Kubler-Ross-Recent-developments-in-our-und
 
+https://www.apa.org/ptsd-guideline/treatments/eye-movement-reprocessing
+
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3122545/
 
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7473035/
