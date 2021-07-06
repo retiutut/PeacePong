@@ -32,7 +32,6 @@ public class BallControl : MonoBehaviour {
 		AudioSource[] sounds = GetComponents<AudioSource>();
 		leftPongSound = sounds[0];
 		rightPongSound = sounds[1];
-		
 	}
 
 	public void ResetBall() {
@@ -51,13 +50,14 @@ public class BallControl : MonoBehaviour {
 			rb2d.velocity = vel;
 
 			bool collidedWithLeftPaddle = coll.gameObject.name == "Paddle1";
+			float sfxVolume = GameManager.bgMusic.isPlaying ? 0F : 1F;
 			if (collidedWithLeftPaddle)
             {
-				leftPongSound.PlayOneShot(leftPongSound.clip, 1F);
+				leftPongSound.PlayOneShot(leftPongSound.clip, sfxVolume);
             }
             else
             {
-				rightPongSound.PlayOneShot(rightPongSound.clip, 1F);
+				rightPongSound.PlayOneShot(rightPongSound.clip, sfxVolume);
 
 			}
 		}
