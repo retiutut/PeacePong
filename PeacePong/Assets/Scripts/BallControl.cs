@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BallControl : MonoBehaviour {
 
-	private AudioSource pongSound;
+	private AudioSource leftPongSound;
+	private AudioSource rightPongSound;
 	private Rigidbody2D rb2d;
 	private bool ballIsStopped = true;
 
@@ -28,7 +29,10 @@ public class BallControl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
-		pongSound = GetComponent<AudioSource>();
+		AudioSource[] sounds = GetComponents<AudioSource>();
+		leftPongSound = sounds[0];
+		rightPongSound = sounds[1];
+		
 	}
 
 	public void ResetBall() {
@@ -46,9 +50,15 @@ public class BallControl : MonoBehaviour {
 			vel.y = rb2d.velocity.y; //Constant ball speed for X and Y axes
 			rb2d.velocity = vel;
 
-			float pan = coll.gameObject.name == "Paddle1" ? -1f : 1f;
-			pongSound.panStereo = pan;
-			pongSound.Play();
+			bool collidedWithLeftPaddle = coll.gameObject.name == "Paddle1";
+			if (collidedWithLeftPaddle)
+            {
+				leftPongSound.Play();
+            }
+            else
+            {
+				rightPongSound.Play();
+            }
 		}
 	}
 
