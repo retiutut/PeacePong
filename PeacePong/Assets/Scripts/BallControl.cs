@@ -53,12 +53,13 @@ public class BallControl : MonoBehaviour {
 			bool collidedWithLeftPaddle = coll.gameObject.name == "Paddle1";
 			if (collidedWithLeftPaddle)
             {
-				leftPongSound.Play();
+				leftPongSound.PlayOneShot(leftPongSound.clip, 1F);
             }
             else
             {
-				rightPongSound.Play();
-            }
+				rightPongSound.PlayOneShot(rightPongSound.clip, 1F);
+
+			}
 		}
 	}
 
