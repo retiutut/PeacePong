@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerControls : MonoBehaviour {
 
@@ -39,10 +40,11 @@ public class PlayerControls : MonoBehaviour {
 		}
 		rb2d.velocity = vel;
 
-
+		bool isOverGameObject = EventSystem.current.IsPointerOverGameObject();
 		//Mouse/Touch Controls
-		if (Input.GetMouseButton(0))
+		if (Input.GetMouseButton(0) && !isOverGameObject)
 		{
+			//Debug.Log(isOverGameObject);
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			//Maintain paddle X position and change Y position only (up/down)
 			target.x = transform.position.x;
