@@ -34,10 +34,10 @@ public class GameManager : MonoBehaviour {
 
 		var centeredStyleButton = GUI.skin.GetStyle("Button");
 		centeredStyleButton.alignment = TextAnchor.MiddleCenter;
-		if (GUI.Button (new Rect (Screen.width / 2 - 60, 20, 120, 50), "RESTART", centeredStyleButton)) {
+		if (GUI.Button (new Rect (Screen.width / 2 - 60, 20, 120, 50), "STOP", centeredStyleButton)) {
 			PlayerScore1 = 0;
 			PlayerScore2 = 0;
-			theBall.SendMessage ("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
+			theBall.SendMessage ("ResetBall", 0.5f, SendMessageOptions.RequireReceiver);
 		}
 
 		if (PlayerScore1 == 10) {

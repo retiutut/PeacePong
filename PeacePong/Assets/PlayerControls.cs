@@ -10,23 +10,30 @@ public class PlayerControls : MonoBehaviour {
 	public float boundY = 2.25f;
 	private Rigidbody2D rb2d;
 	private Vector3 target;
+	GameObject theBall;
+	BallControl ballScript;
 
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
 		target = transform.position;
+		theBall = GameObject.FindGameObjectWithTag("Ball");
+		ballScript = (BallControl)theBall.GetComponent(typeof(BallControl));
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+		bool userInteraction = false;
 
 		//Keyboard Controls
 		var vel = rb2d.velocity;
 		if (Input.GetKey (moveUp)) {
 			vel.y = speed;
+			userInteraction = true;
 		} else if (Input.GetKey (moveDown)) {
 			vel.y = -speed;
+			userInteraction = true;
 		} else if (!Input.anyKey) {
 			vel.y = 0;
 		}
@@ -41,6 +48,7 @@ public class PlayerControls : MonoBehaviour {
 			target.x = transform.position.x;
 			target.z = transform.position.z;
 			transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
 		}
 		
 		//Constrain to window size
@@ -51,5 +59,11 @@ public class PlayerControls : MonoBehaviour {
 			pos.y = -boundY;
 		}
 		transform.position = pos;
+
+		bool startGame = ballScript.BallIsStopped() && userInteraction;
+		if (startGame)
+		{
+			theBall.SendMessage("GoBall", 0.5f, SendMessageOptions.RequireReceiver);
+		}
 	}
 }

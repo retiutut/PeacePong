@@ -6,31 +6,35 @@ public class BallControl : MonoBehaviour {
 
 	private AudioSource pongSound;
 	private Rigidbody2D rb2d;
+	private bool ballIsStopped = true;
 
-	void GoBall() {
+	public void GoBall() {
+
+		if (!ballIsStopped)
+        {
+			return;
+        }
+
 		float rand = Random.Range (0, 2);
 		if (rand < 1) {
 			rb2d.AddForce (new Vector2 (25, -10));
 		} else {
 			rb2d.AddForce (new Vector2 (-25, -10));
 		}
+
+		ballIsStopped = false;
 	}
 
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
-		Invoke ("GoBall", 2);
 		pongSound = GetComponent<AudioSource>();
 	}
 
-	void ResetBall() {
+	public void ResetBall() {
 		rb2d.velocity = new Vector2 (0, 0);
 		transform.position = Vector2.zero;
-	}
-
-	void RestartGame() {
-		ResetBall ();
-		Invoke ("GoBall", 1);
+		ballIsStopped = true;
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -42,8 +46,15 @@ public class BallControl : MonoBehaviour {
 			vel.y = rb2d.velocity.y; //Constant ball speed for X and Y axes
 			rb2d.velocity = vel;
 
+			float pan = coll.gameObject.name == "Paddle1" ? -1f : 1f;
+			pongSound.panStereo = pan;
 			pongSound.Play();
 		}
 	}
+
+	public bool BallIsStopped()
+    {
+		return ballIsStopped;
+    }
 
 }
