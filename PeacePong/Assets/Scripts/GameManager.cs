@@ -5,21 +5,25 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-	private static int playerScore1 = 0;
-	private static int playerScore2 = 0;
-	private static bool pongModeEnabled = false;
+	private int playerScore1 = 0;
+	private int playerScore2 = 0;
+	private bool pongModeEnabled = true;
+
+	public enum SoundMode { Silence, Sounds, Music};
 
 	private GameObject theBall;
 	private GameObject allPongObjects;
 	private GameObject allEMDRObjects;
-	private static Text leftScoreText;
-	private static Text rightScoreText;
-	private static Button bgMusicButton;
-	private static Button gameModeButton;
-	public static AudioSource bgMusic;
+	private Text leftScoreText;
+	private Text rightScoreText;
+	private Button bgMusicButton;
+	private Button gameModeButton;
+	public AudioSource bgMusic;
+	public SoundMode mySoundMode;
 
 	// Use this for initialization
 	void Start () {
+		
 		theBall = GameObject.FindGameObjectWithTag("Ball");
 		allPongObjects = GameObject.Find("PongObjects");
 		allEMDRObjects = GameObject.Find("EMDRObjects");
@@ -27,6 +31,7 @@ public class GameManager : MonoBehaviour {
 		rightScoreText = GameObject.Find("RightScore").GetComponent<Text>();
 		bgMusicButton = GameObject.Find("MusicToggle").GetComponent<Button>();
 		gameModeButton = GameObject.Find("GameModeToggle").GetComponent<Button>();
+		mySoundMode = SoundMode.Silence;
 		AudioSource[] sounds = GetComponents<AudioSource>();
 		bgMusic = sounds[0];
 
@@ -35,7 +40,7 @@ public class GameManager : MonoBehaviour {
 		UpdateGameModeButtonText();
 	}
 
-	public static void Score(string wallID) {
+	public void Score(string wallID) {
 		if (wallID == "RightWall") {
 			playerScore1++;
 			leftScoreText.text = playerScore1.ToString();
@@ -55,7 +60,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-    public static void ResetScores()
+    public void ResetScores()
     {
 		playerScore1 = 0;
 		playerScore2 = 0;
@@ -63,14 +68,17 @@ public class GameManager : MonoBehaviour {
 		rightScoreText.text = playerScore2.ToString();
 	}
 
-	public static void ToggleBgMusic()
+	public void ToggleBgMusic()
     {
 		if (bgMusic == null)
         {
 			return;
         }
 
-		if (!bgMusic.isPlaying)
+		int mode = (((int)mySoundMode) + 1) % SoundMode.GetValues(typeof(SoundMode)).Length;
+		mySoundMode = (SoundMode)mode;
+
+		if (mySoundMode == SoundMode.Music)
 		{
 			bgMusic.Play();
 		}
@@ -97,9 +105,9 @@ public class GameManager : MonoBehaviour {
 		allEMDRObjects.SetActive(!pongModeEnabled);
 	}
 
-	private static void UpdateBgMusicButtonText()
+	private void UpdateBgMusicButtonText()
     {
-		string buttonText = bgMusic.isPlaying ? "Sounds" : "Music";
+		string buttonText = mySoundMode.ToString();
 		bgMusicButton.GetComponentInChildren<Text>().text = buttonText;
 	}
 
@@ -109,7 +117,7 @@ public class GameManager : MonoBehaviour {
 		gameModeButton.GetComponentInChildren<Text>().text = buttonText;
 	}
 
-	public static bool GetPongModeEnabled()
+	public bool GetPongModeEnabled()
     {
 		return pongModeEnabled;
     }

@@ -11,8 +11,8 @@ public class PlayerControls : MonoBehaviour {
 	public float boundY = 2.25f;
 	private Rigidbody2D rb2d;
 	private Vector3 target;
-	GameObject theBall;
-	BallControl ballScript;
+	private GameObject theBall;
+	private BallControl ballScript;
 
 	// Use this for initialization
 	void Start () {

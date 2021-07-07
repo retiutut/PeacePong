@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BallControl : MonoBehaviour {
 
+	public GameObject gameManagerObject;
+	private GameManager gameManager;
 	private AudioSource leftPongSound;
 	private AudioSource rightPongSound;
 	private Rigidbody2D rb2d;
@@ -28,6 +30,7 @@ public class BallControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		gameManager = gameManagerObject.GetComponent<GameManager>();
 		rb2d = GetComponent<Rigidbody2D> ();
 		AudioSource[] sounds = GetComponents<AudioSource>();
 		leftPongSound = sounds[0];
@@ -56,7 +59,7 @@ public class BallControl : MonoBehaviour {
 			rb2d.velocity = vel;
 
 			bool collidedWithLeftPaddle = coll.gameObject.name == "Paddle1";
-			float sfxVolume = GameManager.bgMusic.isPlaying ? 0F : 1F;
+			float sfxVolume = gameManager.mySoundMode == GameManager.SoundMode.Sounds ? 1F : 0F;
 			if (collidedWithLeftPaddle)
             {
 				leftPongSound.PlayOneShot(leftPongSound.clip, sfxVolume);
