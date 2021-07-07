@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void OnGUI() {
+		/*
 		if (playerScore1 == 10) {
 			GUI.Label (new Rect (Screen.width / 2 - 150, 200, 2000, 1000), "PLAYER ONE WINS");
 			theBall.SendMessage ("ResetBall", null, SendMessageOptions.RequireReceiver);
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour {
 			GUI.Label (new Rect (Screen.width / 2 - 150, 200, 2000, 1000), "PLAYER TWO WINS");
 			theBall.SendMessage ("ResetBall", null, SendMessageOptions.RequireReceiver);
 		}
+		*/
 	}
 
     public void ResetScores()
