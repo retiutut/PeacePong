@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 
 	private static int playerScore1 = 0;
 	private static int playerScore2 = 0;
-	private static bool pongModeEnabled = true;
+	private static bool pongModeEnabled = false;
 
 	private GameObject theBall;
 	private GameObject allPongObjects;

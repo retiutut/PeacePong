@@ -18,9 +18,9 @@ public class BallControlEMDR : MonoBehaviour {
 
 		float rand = Random.Range (0, 2);
 		if (rand < 1) {
-			rb2d.AddForce (new Vector2 (25, 0));
+			rb2d.AddForce (new Vector2 (80, 0));
 		} else {
-			rb2d.AddForce (new Vector2 (-25, 0));
+			rb2d.AddForce (new Vector2 (-80, 0));
 		}
 
 		ballIsStopped = false;
