@@ -5,21 +5,32 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-	public static int playerScore1 = 0;
-	public static int playerScore2 = 0;
+	private static int playerScore1 = 0;
+	private static int playerScore2 = 0;
+	private static bool pongModeEnabled = true;
 
 	private GameObject theBall;
-	public static Text leftScoreText;
-	public static Text rightScoreText;
+	private GameObject allPongObjects;
+	private GameObject allEMDRObjects;
+	private static Text leftScoreText;
+	private static Text rightScoreText;
+	private static Button bgMusicButton;
+	private static Button gameModeButton;
 	public static AudioSource bgMusic;
 
 	// Use this for initialization
 	void Start () {
-		theBall = GameObject.FindGameObjectWithTag ("Ball");
+		theBall = GameObject.FindGameObjectWithTag("Ball");
+		allPongObjects = GameObject.Find("PongObjects");
+		allEMDRObjects = GameObject.Find("EMDRObjects");
 		leftScoreText = GameObject.Find("LeftScore").GetComponent<Text>();
 		rightScoreText = GameObject.Find("RightScore").GetComponent<Text>();
+		bgMusicButton = GameObject.Find("MusicToggle").GetComponent<Button>();
+		gameModeButton = GameObject.Find("GameModeToggle").GetComponent<Button>();
 		AudioSource[] sounds = GetComponents<AudioSource>();
 		bgMusic = sounds[0];
+
+		allEMDRObjects.SetActive(!pongModeEnabled);
 	}
 
 	public static void Score(string wallID) {
@@ -50,15 +61,17 @@ public class GameManager : MonoBehaviour {
 		rightScoreText.text = playerScore2.ToString();
 	}
 
-	public static void ToggleBgMusic(bool toggleMusic)
+	public static void ToggleBgMusic()
     {
 		if (bgMusic == null)
         {
 			return;
         }
 
-		Debug.Log("MusicToggle: " + toggleMusic);
-		if (toggleMusic)
+		string buttonText = !bgMusic.isPlaying ? "Sounds" : "Music";
+		bgMusicButton.GetComponentInChildren<Text>().text = buttonText;
+
+		if (!bgMusic.isPlaying)
 		{
 			bgMusic.Play();
 		}
@@ -66,5 +79,17 @@ public class GameManager : MonoBehaviour {
         {
 			bgMusic.Stop();
         }
+	}
+
+	public void ToggleGameMode()
+    {
+		pongModeEnabled = !pongModeEnabled;
+		leftScoreText.gameObject.SetActive(pongModeEnabled);
+		rightScoreText.gameObject.SetActive(pongModeEnabled);
+		allPongObjects.SetActive(pongModeEnabled);
+		allEMDRObjects.SetActive(!pongModeEnabled);
+
+		string buttonText = pongModeEnabled ? "EMDR" : "Pong";
+		gameModeButton.GetComponentInChildren<Text>().text = buttonText;
 	}
 }
