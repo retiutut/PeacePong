@@ -35,6 +35,12 @@ public class BallControl : MonoBehaviour {
 	}
 
 	public void ResetBall() {
+
+		if (rb2d == null)
+		{
+			return;
+		}
+
 		rb2d.velocity = new Vector2 (0, 0);
 		transform.position = Vector2.zero;
 		ballIsStopped = true;

@@ -34,7 +34,25 @@ public class BallControlEMDR : MonoBehaviour {
 		rightPongSound = sounds[1];
 	}
 
-	public void ResetBall() {
+    private void Update()
+    {
+		bool startEMDR = ballIsStopped 
+			&& !GameManager.GetPongModeEnabled() 
+			&& (Input.anyKey || Input.GetMouseButton(0));
+
+		if (startEMDR)
+        {
+			GoBall();
+        }
+    }
+
+    public void ResetBall() {
+
+		if (rb2d == null)
+        {
+			return;
+        }
+
 		rb2d.velocity = new Vector2 (0, 0);
 		transform.position = Vector2.zero;
 		ballIsStopped = true;
@@ -42,35 +60,9 @@ public class BallControlEMDR : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		/*
-		if (coll.collider.CompareTag ("Player")) {
-			Vector2 vel;
-			vel.x = rb2d.velocity.x;
-			//The following line makes for more variable ball speed depending on how the ball strikes the paddles
-			//vel.y = (rb2d.velocity.y / 2.0f) + (coll.collider.attachedRigidbody.velocity.y / 3.0f);
-			vel.y = rb2d.velocity.y; //Constant ball speed for X and Y axes
-			rb2d.velocity = vel;
-
-			bool collidedWithLeftPaddle = coll.gameObject.name == "Paddle1";
-			float sfxVolume = GameManager.bgMusic.isPlaying ? 0F : 1F;
-			if (collidedWithLeftPaddle)
-            {
-				leftPongSound.PlayOneShot(leftPongSound.clip, sfxVolume);
-            }
-            else
-            {
-				rightPongSound.PlayOneShot(rightPongSound.clip, sfxVolume);
-
-			}
-		}
-		*/
-
 		if (coll.collider.CompareTag("SideWall"))
 		{
-			Vector2 vel;
-			vel.x = rb2d.velocity.x;
-
-			bool collidedWithLeftWall = coll.gameObject.name == "LeftWall";
+			bool collidedWithLeftWall = coll.gameObject.name == "LeftWallEMDR";
 			float sfxVolume = GameManager.bgMusic.isPlaying ? 0F : 1F;
 			if (collidedWithLeftWall)
 			{

@@ -30,7 +30,9 @@ public class GameManager : MonoBehaviour {
 		AudioSource[] sounds = GetComponents<AudioSource>();
 		bgMusic = sounds[0];
 
-		allEMDRObjects.SetActive(!pongModeEnabled);
+		UpdateUIBasedOnGameMode();
+		UpdateBgMusicButtonText();
+		UpdateGameModeButtonText();
 	}
 
 	public static void Score(string wallID) {
@@ -53,7 +55,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public static void ResetScores()
+    public static void ResetScores()
     {
 		playerScore1 = 0;
 		playerScore2 = 0;
@@ -68,9 +70,6 @@ public class GameManager : MonoBehaviour {
 			return;
         }
 
-		string buttonText = !bgMusic.isPlaying ? "Sounds" : "Music";
-		bgMusicButton.GetComponentInChildren<Text>().text = buttonText;
-
 		if (!bgMusic.isPlaying)
 		{
 			bgMusic.Play();
@@ -79,17 +78,39 @@ public class GameManager : MonoBehaviour {
         {
 			bgMusic.Stop();
         }
+
+		UpdateBgMusicButtonText();
 	}
 
 	public void ToggleGameMode()
     {
 		pongModeEnabled = !pongModeEnabled;
+		UpdateUIBasedOnGameMode();
+		UpdateGameModeButtonText();
+	}
+
+	private void UpdateUIBasedOnGameMode()
+    {
 		leftScoreText.gameObject.SetActive(pongModeEnabled);
 		rightScoreText.gameObject.SetActive(pongModeEnabled);
 		allPongObjects.SetActive(pongModeEnabled);
 		allEMDRObjects.SetActive(!pongModeEnabled);
+	}
 
+	private static void UpdateBgMusicButtonText()
+    {
+		string buttonText = bgMusic.isPlaying ? "Sounds" : "Music";
+		bgMusicButton.GetComponentInChildren<Text>().text = buttonText;
+	}
+
+	private void UpdateGameModeButtonText()
+    {
 		string buttonText = pongModeEnabled ? "EMDR" : "Pong";
 		gameModeButton.GetComponentInChildren<Text>().text = buttonText;
 	}
+
+	public static bool GetPongModeEnabled()
+    {
+		return pongModeEnabled;
+    }
 }
