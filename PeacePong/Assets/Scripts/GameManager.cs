@@ -109,7 +109,8 @@ public class GameManager : MonoBehaviour {
 
 	private void UpdateBgMusicButtonText()
     {
-		string buttonText = mySoundMode.ToString();
+		int nextMode = (((int)mySoundMode) + 1) % SoundMode.GetValues(typeof(SoundMode)).Length;
+		string buttonText = ((SoundMode)nextMode).ToString();
 		bgMusicButton.GetComponentInChildren<Text>().text = buttonText;
 	}
 
