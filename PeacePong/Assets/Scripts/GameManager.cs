@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
 	private int playerScore1 = 0;
 	private int playerScore2 = 0;
 	private int singlePlayerScore = 0;
+	private int singlePlayerHighScore = 0;
 	private bool pongModeEnabled = true;
 
 	public enum SoundMode { Silence, Sounds, Music};
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour {
 	private Text leftScoreText;
 	private Text rightScoreText;
 	private Text singlePlayerScoreText;
+	private Text singlePlayerHighScoreText;
 	private Button bgMusicButton;
 	private Button gameModeButton;
 	public AudioSource bgMusic;
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour {
 		leftScoreText = GameObject.Find("LeftScore").GetComponent<Text>();
 		rightScoreText = GameObject.Find("RightScore").GetComponent<Text>();
 		singlePlayerScoreText = GameObject.Find("SinglePlayerScore").GetComponent<Text>();
+		singlePlayerHighScoreText = GameObject.Find("SinglePlayerHighScore").GetComponent<Text>();
 		bgMusicButton = GameObject.Find("MusicToggle").GetComponent<Button>();
 		gameModeButton = GameObject.Find("GameModeToggle").GetComponent<Button>();
 		mySoundMode = SoundMode.Silence;
@@ -41,22 +44,27 @@ public class GameManager : MonoBehaviour {
 		UpdateUIBasedOnGameMode();
 		UpdateBgMusicButtonText();
 		UpdateGameModeButtonText();
+		UpdatePlayerScoreUI();
 	}
 
 	public void Score(string wallID) {
 		if (wallID == "RightWall") {
 			playerScore1++;
-			leftScoreText.text = playerScore1.ToString();
 		} else {
 			playerScore2++;
-			rightScoreText.text = playerScore2.ToString();
 		}
+		singlePlayerScore = 0;
+		UpdatePlayerScoreUI();
 	}
 
 	public void IncrementSinglePlayerScore()
     {
 		singlePlayerScore++;
-		singlePlayerScoreText.text = singlePlayerScore.ToString();
+		if (singlePlayerScore > singlePlayerHighScore)
+        {
+			singlePlayerHighScore = singlePlayerScore;
+        }
+		UpdatePlayerScoreUI();
 	}
 
 	void OnGUI() {
@@ -76,9 +84,7 @@ public class GameManager : MonoBehaviour {
 		playerScore1 = 0;
 		playerScore2 = 0;
 		singlePlayerScore = 0;
-		leftScoreText.text = playerScore1.ToString();
-		rightScoreText.text = playerScore2.ToString();
-		singlePlayerScoreText.text = singlePlayerScore.ToString();
+		UpdatePlayerScoreUI();
 	}
 
 	public void ToggleBgMusic()
@@ -115,6 +121,7 @@ public class GameManager : MonoBehaviour {
 		leftScoreText.gameObject.SetActive(false);
 		rightScoreText.gameObject.SetActive(false);
 		singlePlayerScoreText.gameObject.SetActive(pongModeEnabled);
+		singlePlayerHighScoreText.gameObject.SetActive(pongModeEnabled);
 		allPongObjects.SetActive(pongModeEnabled);
 		allEMDRObjects.SetActive(!pongModeEnabled);
 	}
@@ -130,6 +137,14 @@ public class GameManager : MonoBehaviour {
     {
 		string buttonText = pongModeEnabled ? "EMDR" : "Pong";
 		gameModeButton.GetComponentInChildren<Text>().text = buttonText;
+	}
+
+	private void UpdatePlayerScoreUI()
+    {
+		leftScoreText.text = playerScore1.ToString();
+		rightScoreText.text = playerScore2.ToString();
+		singlePlayerScoreText.text = "Your Score: " + singlePlayerScore.ToString();
+		singlePlayerHighScoreText.text = "High Score: " + singlePlayerHighScore.ToString();
 	}
 
 	public bool GetPongModeEnabled()
