@@ -69,6 +69,8 @@ public class BallControl : MonoBehaviour {
 				rightPongSound.PlayOneShot(rightPongSound.clip, sfxVolume);
 
 			}
+
+			gameManager.IncrementSinglePlayerScore();
 		}
 	}
 

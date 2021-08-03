@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
 
 	private int playerScore1 = 0;
 	private int playerScore2 = 0;
+	private int singlePlayerScore = 0;
 	private bool pongModeEnabled = true;
 
 	public enum SoundMode { Silence, Sounds, Music};
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour {
 	private GameObject allEMDRObjects;
 	private Text leftScoreText;
 	private Text rightScoreText;
+	private Text singlePlayerScoreText;
 	private Button bgMusicButton;
 	private Button gameModeButton;
 	public AudioSource bgMusic;
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour {
 		allEMDRObjects = GameObject.Find("EMDRObjects");
 		leftScoreText = GameObject.Find("LeftScore").GetComponent<Text>();
 		rightScoreText = GameObject.Find("RightScore").GetComponent<Text>();
+		singlePlayerScoreText = GameObject.Find("SinglePlayerScore").GetComponent<Text>();
 		bgMusicButton = GameObject.Find("MusicToggle").GetComponent<Button>();
 		gameModeButton = GameObject.Find("GameModeToggle").GetComponent<Button>();
 		mySoundMode = SoundMode.Silence;
@@ -50,6 +53,12 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	public void IncrementSinglePlayerScore()
+    {
+		singlePlayerScore++;
+		singlePlayerScoreText.text = singlePlayerScore.ToString();
+	}
+
 	void OnGUI() {
 		/*
 		if (playerScore1 == 10) {
@@ -66,8 +75,10 @@ public class GameManager : MonoBehaviour {
     {
 		playerScore1 = 0;
 		playerScore2 = 0;
+		singlePlayerScore = 0;
 		leftScoreText.text = playerScore1.ToString();
 		rightScoreText.text = playerScore2.ToString();
+		singlePlayerScoreText.text = singlePlayerScore.ToString();
 	}
 
 	public void ToggleBgMusic()
@@ -101,8 +112,9 @@ public class GameManager : MonoBehaviour {
 
 	private void UpdateUIBasedOnGameMode()
     {
-		leftScoreText.gameObject.SetActive(pongModeEnabled);
-		rightScoreText.gameObject.SetActive(pongModeEnabled);
+		leftScoreText.gameObject.SetActive(false);
+		rightScoreText.gameObject.SetActive(false);
+		singlePlayerScoreText.gameObject.SetActive(pongModeEnabled);
 		allPongObjects.SetActive(pongModeEnabled);
 		allEMDRObjects.SetActive(!pongModeEnabled);
 	}
